@@ -10,12 +10,20 @@ const VideoContainer = styled.section`
 
 function HomePage() {
   return (
-    <VideoContainer key={Math.random()}>
-      <h1 key={Math.random()}>Video List</h1>
+    <VideoContainer key={`video-container`}>
+      <h1 key={`video-list-title`}>Video List</h1>
         {getVideoList()
-        .map((video, index) => (
-          <VideoItem key={Math.random()} id={video.id} title={video.title} thumbnail={video.thumbnail} description={video.description}></VideoItem>
-        ))}
+        .map((video, index) => {
+            const { id, title, thumbnail, description} = video;
+            return(
+              <VideoItem 
+                key={`video-item-${index}`} 
+                id={id} 
+                title={title} 
+                thumbnail={thumbnail} 
+                description={description} />)
+            })
+        }
     </VideoContainer>
   );
 }
