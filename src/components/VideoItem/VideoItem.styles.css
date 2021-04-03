@@ -1,0 +1,42 @@
+.column {
+    float: left;
+    padding: 0 10px;
+    margin: 25px 0 0 0;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+    text-align: center;
+    background-color: white;
+    height: 400px;
+    width: 350px;
+    cursor: pointer;
+}
+
+.card:hover{
+    background-color: gray;
+}
+
+.text{
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.thumbnail{
+    max-width: 100%;
+    max-height: 50%;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+    }
+  }

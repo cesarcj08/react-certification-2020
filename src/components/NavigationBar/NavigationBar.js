@@ -6,10 +6,9 @@ import './NavigationBar.styles.css';
 
 const SearchContainer = styled.div`
     overflow: hidden;
-    background-color: #e9e9e9;
     text-align:center;
-    margin-top: 1px;
-    margin-left 30px;
+    margin-top: 10px;
+    margin-left: 30px;
 `;
 
 const Input = styled.input`
@@ -28,13 +27,15 @@ const UserImg = styled.img`
 `;
 
 
-function NavigationBar(){
+function NavigationBar({ setSearchValue, searchValue, searchVideoEvent }){
+    const handleSearchEvent = (event) => searchVideoEvent(event)
+    const handleSearchValue = (value) => setSearchValue(value);
     return(
         <div>
             <SideMenu />
             <SearchContainer className="divinline">
-                <Input type="text" placeholder="Search.." />
-                <Input type="submit" value="Search" />
+                <Input id="txtSearch" onChange={(event) => handleSearchValue(event.currentTarget.value)} type="text" value={searchValue} placeholder="Search.." />
+                <Input type="submit" onClick={(event) => handleSearchEvent(event)} value="Search" />
                 <InlineDiv>
                     <UserImg src={defaultuserimage} alt="...image" />
                 </InlineDiv>

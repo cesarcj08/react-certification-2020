@@ -1,27 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
+import './VideoItem.styles.css';
 
-const VideoItemContainer = styled.div`
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    text-align: center;
-
-`;
-
-const Thumbnail = styled.img`
-    max-width: 200px;
-    max-height: 250px ;
-`;
-
-function VideoItem({id, title, thumbnail, description}){
+function VideoItem({id, title, thumbnail, description, setSelectedVideo}){
+    const selectVideo = (video) => setSelectedVideo(video);
     return(
-        <VideoItemContainer id={id} key={`video-item-container-${id}`}>
-            <Thumbnail key={`video-thumbnail-${id}`} src={thumbnail} alt={description} />
-            <div key={`video-title-container-${id}`}>
-                <div key={`video-title-${id}`}>{title}</div>
-            </div>
-        </VideoItemContainer>
+        <>
+            {
+                id !== undefined &&
+               <div onClick={(event) => selectVideo([{ id: id, title: title, description: description }])} className="column" key={`video-item-container-${id}`}>
+                    <div className="card" id={id} key={`video-item-card-${id}`}>
+                        <img key={`video-thumbnail-${id}`} className="thumbnail" src={thumbnail} alt={description} />
+                        <h3 className="text">{title}</h3>
+                        <p className="text">{description}</p>
+                    </div>
+                </div>
+            }
+        </>
     );
 }
 
