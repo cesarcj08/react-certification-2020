@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import './VideoDetail.styles.css';
+import { useVideoContext } from '../../state/VideosContext';
+import { useThemeContext } from '../../state/ThemeContext';
 
 const VideoDetailsContainer = styled.div`
     display: grid;
@@ -14,35 +16,41 @@ const VideoPlayer = styled.iframe`
     height: 600px;
 `;
 
-function VideoDetail({ video, videoList, setSelectedVideo }){
-    const selectVideo = (video) => setSelectedVideo(video);
-    const videoSrc = `https://www.youtube.com/embed/${video.id}`;
+function VideoDetail(){
+    const { videoList, state, dispatch } = useVideoContext();
+    const { id, title, description } = state;
+    const { theme } = useThemeContext();
+
+    const videoSrc = `https://www.youtube.com/embed/${id}`;
     const getVideoList = (item) => {
-        return (item.items.map((video, index) => {
+        return (item.items.map((videoItem, index) => {
+            const { id, snippet } = videoItem;
+            const { title, thumbnails, description } = snippet;
+            
               return {
-                id:video.id.videoId,
-                title:video.snippet.title,
-                thumbnail:video.snippet.thumbnails.medium.url,
-                description:video.snippet.description,
-                shortthumbnail:video.snippet.thumbnails.default.url,
+                id: id.videoId,
+                title: title,
+                thumbnail: thumbnails.medium.url,
+                description: description,
+                shortthumbnail: thumbnails.default.url,
               };
         }));
       }
 
     return(
-        <VideoDetailsContainer>
+        <VideoDetailsContainer style={{color: theme.fontcolor, backgroundColor: theme.backgroundcolor }}>
             <div>
                 <VideoPlayer src={videoSrc} allowFullScreen title='Video player'/>
-                <h4>{video.title}</h4>
-                <p>{video.description}</p>
+                <h4>{title}</h4>
+                <p>{description}</p>
             </div>
             <div>
                 {getVideoList(videoList).map((video, index) => {
                     const { id, title, description, shortthumbnail} = video;
                     return(
                         id !== undefined &&
-                        <div onClick={(event) => selectVideo([{ id: id, title: title, description: description }])} key={`video-item-container-${id}`}>
-                            <div className="listItem" id={id} key={`video-item-card-${id}`}>
+                        <div onClick={(event) => dispatch({ id: id, title: title, description: description })} key={`video-item-container-${id}`}>
+                            <div className="listItem" style={{ backgroundColor: theme.backgroundcolor }} id={id} key={`video-item-card-${id}`}>
                                 <div>
                                     <img className="listItemThumbnail" key={`video-thumbnail-${id}`} src={shortthumbnail} alt={description} />
                                 </div>
@@ -59,32 +67,3 @@ function VideoDetail({ video, videoList, setSelectedVideo }){
 }
 
 export default VideoDetail;
-
-
-
-/**
- * const VideoDetailsContainer = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-`;
-
-const VideoPlayer = styled.iframe`
-    height: 600px;
-`;
-
-const VideoPlayerContainer = styled.div`
-    width: 70%;
-    height: 100%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-`;
-
-const VideoListContainer = styled.div`
-    width: 30%;
-    height: 100%;
-    overflow: scroll;
-`;
- */

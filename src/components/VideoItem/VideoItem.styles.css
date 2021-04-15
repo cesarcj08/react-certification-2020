@@ -8,14 +8,13 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     padding: 16px;
     text-align: center;
-    background-color: white;
     height: 400px;
     width: 350px;
     cursor: pointer;
 }
 
 .card:hover{
-    background-color: gray;
+    background-color: rgb(201, 201, 201)!important;
 }
 
 .text{

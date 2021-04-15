@@ -2,14 +2,18 @@ import React from 'react';
 import './Home.styles.css';
 import VideoItem from '../../components/VideoItem/VideoItem';
 import styled from 'styled-components';
+import { useVideoContext } from '../../state/VideosContext';
+import { useThemeContext } from '../../state/ThemeContext';
 
 const VideoContainer = styled.div`
   margin: 25px 0 0 0;
   text-align: center;
 `;
 
+function HomePage() {
+  const { videoList } = useVideoContext();
+  const { theme } = useThemeContext();
 
-function HomePage({ videoList, setSelectedVideo }) {
   const getVideoList = (item) => {
     return (item.items.map((video, index) => {
           return {
@@ -23,9 +27,9 @@ function HomePage({ videoList, setSelectedVideo }) {
   }
 
   return (
-      <VideoContainer key={`video-container`}>
-      <h1 key={`video-list-title`}>Video List</h1>
-          {/* {console.log(videoList)} */}
+      <VideoContainer key={`video-container`} style={{color: theme.fontcolor, backgroundColor: theme.backgroundcolor, marginTop: "-25px"}}>
+      <h1 key={`video-list-title`} style={{backgroundColor: theme.backgroundcolor}}>Video List</h1>
+          <div style={{marginLeft: "10%", display: "inline-block", backgroundColor: theme.backgroundcolor}}>
           {
           getVideoList(videoList)
           .map((video, index) => {
@@ -36,10 +40,10 @@ function HomePage({ videoList, setSelectedVideo }) {
                   id={id} 
                   title={title} 
                   thumbnail={thumbnail} 
-                  description={description} 
-                  setSelectedVideo={setSelectedVideo}/>)
+                  description={description} />)
               })
           }
+          </div>
       </VideoContainer>
   );
 }

@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { videos } from '../mock/mockedData';
 
-
-
-function callYoutubeApi(){
+function getVideos(searchValue){
     const apiKey = 'AIzaSyBk36jjzQ-WpYrzz5e4JnQZ56KB_keHtxk';
     const mock = false;
     return(
@@ -17,11 +15,11 @@ function callYoutubeApi(){
                 }
             }).get('/search', {
                 params: {
-                    q: document.getElementById("txtSearch").value
+                    q: searchValue
                 }
             })
         : videos
     )
 }
 
-export default callYoutubeApi;
+export default getVideos;
