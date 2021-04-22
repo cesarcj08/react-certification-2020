@@ -555,7 +555,7 @@ const videos = {
 };
 
 function getMockVideoList(){
-  return (videos.items.map((video, index) => {
+  return (videos.data.items.map((video, index) => {
     return {
       id:video.id.videoId,
       title:video.snippet.title,

@@ -1,20 +1,23 @@
-import React from 'react';
-import { FaBars } from "react-icons/fa";
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './SideMenu.styles.css'
+/**ToDo: implementar dark theme en el menu lateral */
 function SideMenu(){
+    const [sidebar, setSidebar] = useState(false);
+    const showSidebar = () => setSidebar(!sidebar);
+    
     return(
-        <BrowserRouter>
-            <React.Fragment>
-                <Link to="#" className="menu-bars">
-                    <FaBars style={{color: 'black'}} />
-                </Link>
-            </React.Fragment>
-            <Switch>
-                <Route path="/">
-                </Route>
-            </Switch>
-        </BrowserRouter>
+        <>
+            <nav className={sidebar ? "sidebar active" : "sidebar"}>
+                <button className="hamburger" type="button" onClick={showSidebar}>
+                    <div></div>
+                </button>
+                <ul onClick={showSidebar}>
+                    <li><Link to="/">Inicio</Link></li>
+                    <li><Link to="/favoritos">Favoritos</Link></li>
+                </ul>
+            </nav>
+        </>
     )
 }
 
