@@ -1,3 +1,15 @@
 .divinline{
     display: inline;
 }
+.topnavbar {
+    border-bottom: 4px solid #000;
+    padding: 20px;
+}
+
+.leftfloated{
+    float: left
+}
+
+.rightfloated{
+    float: right;
+}

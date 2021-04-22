@@ -1,0 +1,36 @@
+.column {
+    float: left;
+    padding: 0 10px;
+    margin: 25px 0 0 0;
+}
+
+.listItem {
+    padding: 2px;
+    background-color: white;
+    cursor: pointer;
+    border: 1px solid black;
+    margin-bottom: -1px;
+
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-gap: 5px;
+    position: relative;
+}
+
+.listItem:hover{
+    background-color: lightgray!important;
+}
+
+.listItemTitle{
+    font-size: 15px;
+}
+
+.listItemDescription{
+    font-size: 12px;
+}
+
+.listItemThumbnail{
+    margin-top: 20px;
+    width: 120px;
+    height: 90px;
+}

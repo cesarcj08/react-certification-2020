@@ -1,13 +1,17 @@
 import React from 'react';
-import Home from '../../pages/Home/index';
 import NavigationBar from '../NavigationBar/NavigationBar';
+import VideosContextProvider from '../../state/VideosContext';
+import ThemeContextProvider from '../../state/ThemeContext';
+import Main from '../../pages/Main/index';
 
 function App() {
   return (
-    <React.Fragment>
-      <NavigationBar></NavigationBar>
-      <Home></Home>   
-    </React.Fragment> 
+    <VideosContextProvider>
+      <ThemeContextProvider>
+        <NavigationBar></NavigationBar>
+        <Main />
+      </ThemeContextProvider>
+    </VideosContextProvider> 
   );
 }
 

@@ -1,27 +1,24 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const VideoItemContainer = styled.div`
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    text-align: center;
-
-`;
-
-const Thumbnail = styled.img`
-    max-width: 200px;
-    max-height: 250px ;
-`;
+import './VideoItem.styles.css';
+import { useThemeContext } from '../../state/ThemeContext';
+import { useVideoContext } from '../../state/VideosContext';
 
 function VideoItem({id, title, thumbnail, description}){
+    const { dispatch } = useVideoContext();
+    const { theme } = useThemeContext();
     return(
-        <VideoItemContainer id={id} key={`video-item-container-${id}`}>
-            <Thumbnail key={`video-thumbnail-${id}`} src={thumbnail} alt={description} />
-            <div key={`video-title-container-${id}`}>
-                <div key={`video-title-${id}`}>{title}</div>
-            </div>
-        </VideoItemContainer>
+        <>
+            {
+                id !== undefined &&
+               <div onClick={(event) => dispatch({ id: id, title: title, description: description })} className="column" key={`video-item-container-${id}`}>
+                    <div className="card" style={{ backgroundColor: theme.cardbackgroundcolor }} id={id} key={`video-item-card-${id}`}>
+                        <img key={`video-thumbnail-${id}`} className="thumbnail" src={thumbnail} alt={description} />
+                        <h3 className="text">{title}</h3>
+                        <p className="text">{description}</p>
+                    </div>
+                </div>
+            }
+        </>
     );
 }
 
