@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import defaultuserimage from '../NavigationBar/userlogo.jpg';
-import SideMenu from '../SideMenu/SideMenu';
 import './NavigationBar.styles.css';
 import getVideos  from '../../services/youtubeapi';
 import { useVideoContext } from '../../state/VideosContext';
 import { useThemeContext, defaultTheme, darkTheme } from '../../state/ThemeContext';
+import { useHistory } from 'react-router-dom';
 
 const SearchContainer = styled.div`
     overflow: hidden;
@@ -39,21 +39,41 @@ function NavigationBar(){
     const { searchValue, setSearchValue, setVideoList, dispatch } = useVideoContext();
     const handleSearchValue = (value) => setSearchValue(value);
     const { theme, setTheme } = useThemeContext();
+    let history = useHistory();
 
     const handleSearchVideoEvent = async (event) => {
         event.preventDefault();
         const response = await getVideos(searchValue)
-        setVideoList(response.data);
+        setVideoList(getVideosList(response));
         dispatch({
             id: 0, 
             title: "", 
-            description: ""
+            description: "",
+            thumbnail: "", 
+            shortthumbnail: ""
         });
+
+        history.replace('/');
     }
 
+    function getVideosList(videos){
+        return (videos.data.items.map((video, index) => {
+          return {
+            id:video.id.videoId,
+            title:video.snippet.title,
+            thumbnail:video.snippet.thumbnails.medium.url,
+            description:video.snippet.description,
+            shortthumbnail:video.snippet.thumbnails.default.url,
+          };
+        }));
+      }
+
+    const redirectToLogin = () => {
+        history.replace('/login');
+    }
+/**ToDo: cambiar los estilos en linea por props de los styled components */
     return(
         <NavigationBarcontainer style={{ color: theme.fontcolor, backgroundColor: theme.navbarcolor }}>
-            <SideMenu />
             <SearchContainer className="divinline">
                 <Input id="txtSearch" onChange={(event) => handleSearchValue(event.currentTarget.value)} type="text" value={searchValue} placeholder="Search.." />
                 <Input type="submit" onClick={(event) => handleSearchVideoEvent(event)} value="Search" />
@@ -62,7 +82,6 @@ function NavigationBar(){
                     <label htmlFor="darkmode">Dark mode</label>
                     <input name="darkmode" type="checkbox" onChange={(event) => event.target.checked ? setTheme(darkTheme) : setTheme(defaultTheme) } />
                 </InlineDiv>
-                
             </SearchContainer>
         </NavigationBarcontainer>
     )

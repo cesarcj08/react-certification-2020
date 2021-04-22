@@ -1,3 +1,4 @@
 const AUTH_STORAGE_KEY = 'wa_cert_authenticated';
+const USER_FAVORITE_VIDEOS = 'USER_FAVORITE_VIDEOS'
 
-export { AUTH_STORAGE_KEY };
+export { AUTH_STORAGE_KEY, USER_FAVORITE_VIDEOS };

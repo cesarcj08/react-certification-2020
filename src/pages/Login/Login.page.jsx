@@ -1,17 +1,13 @@
 import React from 'react';
-import { useHistory } from 'react-router';
-
-import { useAuth } from '../../providers/Auth';
+import { useHistory } from 'react-router-dom';
 import './Login.styles.css';
 
 function LoginPage() {
-  const { login } = useAuth();
   const history = useHistory();
 
   function authenticate(event) {
     event.preventDefault();
-    login();
-    history.push('/secret');
+    history.push('/');
   }
 
   return (
